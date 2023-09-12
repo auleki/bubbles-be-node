@@ -9,7 +9,7 @@ router.get("/", Cloth.getAllClothes)
 router.get("/:id", Cloth.getSingleCloth)
 router.post("/", Cloth.createCloth)
 router.patch("/:id", Cloth.editCloth)
-router.delete("/:id", Cloth.editCloth)
+router.delete("/:id", Cloth.deleteCloth)
 
 export default router
 

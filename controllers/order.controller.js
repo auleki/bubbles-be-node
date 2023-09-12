@@ -43,6 +43,7 @@ export default class OrderController {
     async createOrder(req, res) {
         try {
             const newOrder = await new Order(req.body)
+            // calculate the total price on the server side as well and add this order to the queueg
             const savedOrder = await newOrder.save()
             res.status(201).json({data: savedOrder})
         } catch (error) {

@@ -36,7 +36,7 @@ export default class UserController extends BaseController {
     async editUser(req, res) {
         try {
             const user = await User.findByIdAndUpdate(req.params.id, req.body)
-            const savedUser = user.save()
+            const savedUser = await user.save()
             res.status(200).json({data: savedUser})
         } catch (error) {
             res.status(400).json({data: error})

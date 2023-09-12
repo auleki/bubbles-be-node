@@ -42,6 +42,7 @@ const userSchema = new Schema({
 	phone: {
 		type: String,
 		required: true,
+		unique: true
 	},
 	points: {
 		type: Number,
@@ -56,5 +57,13 @@ const userSchema = new Schema({
 		type: [Schema.Types.ObjectId],
 	},
 }, {timestamps: true});
+
+userSchema.set('toJSON', {
+	transform: (_, retDoc) => {
+		retDoc.id = retDoc._id.toString()
+		delete retDoc._id
+		delete retDoc.__v
+	}
+})
 
 export default model("User", userSchema);

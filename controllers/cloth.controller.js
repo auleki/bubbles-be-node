@@ -31,7 +31,7 @@ export default class ClothesController {
 
     async editCloth(req, res) {
         try {
-            const updatedCloth = await Cloth.findByIdAndUpdate(req.params.id, req.body)
+            const updatedCloth = await Cloth.findByIdAndUpdate(req.params.id, req.body, {new: true})
             await updatedCloth.save()
             res.status(200).json({data: updatedCloth})
         } catch (error) {

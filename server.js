@@ -13,9 +13,13 @@ import cors from "cors";
 class Server {
   app = null;
   port = null;
+  versioning = null
+
   constructor() {
     this.app = express();
-    this.port = process.env.PORT;
+    this.port = process.env.PORT || 9000;
+    this.versioning = "/api/v1"
+    this.addMiddleware()
     this.addRoutes();
     this.connectToDb();
   }
@@ -27,11 +31,11 @@ class Server {
   }
 
   addRoutes() {
-    this.app.use("/users", userRoutes);
-    this.app.use("/locations", locationRoutes)
-    this.app.use("/orders", orderRoutes)
-    this.app.use("/prices", priceRoutes)
-    this.app.use("/cloth", clothRoutes)
+    this.app.use(this.versioning + "/users", userRoutes);
+    this.app.use(this.versioning + "/locations", locationRoutes)
+    this.app.use(this.versioning + "/orders", orderRoutes)
+    this.app.use(this.versioning + "/prices", priceRoutes)
+    this.app.use(this.versioning + "/clothes", clothRoutes)
   }
 
   async connectToDb() {
@@ -39,7 +43,7 @@ class Server {
     const dbUrl = process.env.MONGODB_URL || "";
     try {
       console.log("connecting to db...");
-      await mongoose.connect(process.env.MONGODB_URL);
+      await mongoose.connect(dbUrl);
       this.startServer();
     } catch (error) {
       console.error("Could not connect to DB", error);
