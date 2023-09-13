@@ -12,6 +12,10 @@ const ordersSchema = new Schema({
     status: {
         type: String,
         required: true
+    },
+    timeJoinedQueue: {
+        type: Date,
+        default: Date.now(),
     }
 
 }, {timestamps: true})
